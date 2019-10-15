@@ -1,3 +1,5 @@
+
+  
 $(document).ready(function () {
 
 
@@ -27,6 +29,7 @@ $(document).ready(function () {
 
     function count() {
 
+if (time >0) {
 
         // DONE: increment time by 1, remember we cant use "this" here.
         time--;
@@ -38,6 +41,8 @@ $(document).ready(function () {
 
         // DONE: Use the variable we just created to show the converted time in the "display" div.
         $("#timerPart2").html(time + " seconds");
+    }
+    else { !clockRunning}
     }
 
 
