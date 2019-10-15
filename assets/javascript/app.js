@@ -83,6 +83,13 @@ if (time >0) {
     
     function startButton() {
         alert("startbutton");
+
+        let startButton = $("<p>");
+        startButton.html("<br><br><p>START GAME</p>");
+        $("#start-button").append( startButton);
+        $("#start-button").css("text-align", "center");
+
+
         count();
 
         // unhide start button
