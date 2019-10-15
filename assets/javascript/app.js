@@ -19,8 +19,9 @@ $(document).ready(function () {
 
 
     // when page loads display only start button 
+    startButton();
 
-    //click start button to start game 
+    //click start button to start game which
 
     // timer displays  AND //question display 
 
@@ -40,10 +41,12 @@ $(document).ready(function () {
 
 // start page with clock running =false
     if (!clockRunning) {
+
+    //set intervalId = 1 sec
         intervalId = setInterval(count, 1000);
         clockRunning = true;
     }
-    else { !clockRunning }
+    else { !clockRunning}
 
 
 
@@ -59,10 +62,11 @@ if (time >0) {
         // const converted = timeConverter(time);
         console.log(time);
 
-        // DONE: Use the variable we just created to show the converted time in the "display" div.
+        // DONE: Used the span to "combine" id gamertimer defined in html.
         $("#timerPart2").html(time + " seconds");
     }
     else { !clockRunning}
+    // $("#gameTimer").css("display", "none");
     }
 
 
@@ -84,23 +88,35 @@ if (time >0) {
     function startButton() {
         alert("startbutton");
 
-        let startButton = $("<p>");
-        startButton.html("<br><br><p>START GAME</p>");
-        $("#start-button").append( startButton);
-        $("#start-button").css("text-align", "center");
+        let startButton = $("<button>");
 
+        // added class buttonProperties to button
+        startButton.addClass("buttonProperties");
+
+        //labled the button START GAME
+        startButton.html('<p> START GAME </p>'); 
+
+        // added button to start-button div
+        $("#start-button").append( startButton);
+
+        // adding css properties to button 
+        $(".buttonProperties").css("background", "pink");
+        $(".buttonProperties").css("margin-left", "400px");
+        
+        // $("#start-button").css("background-color", "pink");
 
         count();
 
-        // unhide start button
+        // unhide gametime button
         $("#gameTimer").css("display", "inline-block");
+        
     }
 
     function playGame() {
         alert("playGame");
     }
 
-    startButton();
+   
     // playGame();
 
 
