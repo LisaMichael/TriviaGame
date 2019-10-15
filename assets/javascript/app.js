@@ -1,3 +1,5 @@
+$(document).ready(function(){
+
 
 // declare my variables 
 let wins= 0;
@@ -18,4 +20,15 @@ let qNa = {
     // place users possible guesses in an array 
     userGuess: [option1,option2,option3,option4, answerId, AnswerText], 
     giphy: "https://giv"
+},
+
+function startButton(){
+    alert("startbutton");
 }
+
+function playGame() {
+    alert("playGame");
+}
+startButton();
+playGame();
+}) // end of $(document).ready 
