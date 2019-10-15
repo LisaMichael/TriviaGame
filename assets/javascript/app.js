@@ -1,5 +1,5 @@
 
-  
+
 $(document).ready(function () {
 
 
@@ -17,6 +17,36 @@ $(document).ready(function () {
     let time = 30;
     let intervalId;
 
+    //create an object to store my questions and answers
+
+    let qNa = {
+         answerId:0, 
+        question: "what is my first question",
+        answer: 'my answer is an array element',
+
+        // place users possible guesses in an array 
+        userGuess: [option1, option2, option3, option4, answerId, answerText],
+        giphy: "https://media.giphy.com/media/l4KibK3JwaVo0CjDO/giphy.gif"
+    }
+
+
+    let question1 = {
+        answerId: 1,
+        question: "What is Peter Griffin's wife's name", 
+        answer: "Lois",
+        userGuess: ["Marge", "Peggy", "Wilma" , "Lois" ],
+        giphy: "https://media.giphy.com/media/26ufdkz27PfQJ7NEQ/giphy.gif"
+    }
+
+    let question2 = {
+        answerId: 2,
+        question: "What cartoon character was Walt Disney's favorite?",
+        answer: "Goofy",
+        userGuess: ["Minnie", "Jiminey Crickett", "Goofy", "Daisey"],
+        giphy: "https://media.giphy.com/media/4ADaU1Q10Wh0I/giphy.gif"
+    }
+
+
 
     // when page loads display only start button 
     startButton();
@@ -25,10 +55,11 @@ $(document).ready(function () {
 
     // timer displays  AND //question display 
 
+    
 
     // question must be answered before timer reaches zero
 
-    // if question is answered correctly , dispplay giphy 
+    // if question is answered correctly , display giphy 
 
 
     //else  display WRONG !!! 
@@ -39,84 +70,81 @@ $(document).ready(function () {
 
 
 
-// start page with clock running =false
+    // start page with clock running =false
     if (!clockRunning) {
 
-    //set intervalId = 1 sec
+        //set intervalId = 1 sec
         intervalId = setInterval(count, 1000);
         clockRunning = true;
     }
-    else { !clockRunning}
+    else { !clockRunning }
 
 
 
     function count() {
 
-if (time >0) {
+        if (time > 0) {
 
-        // DONE: increment time by 1, remember we cant use "this" here.
-        time--;
+            // DONE: increment time by 1, remember we cant use "this" here.
+            time--;
 
-        // DONE: Get the current time, pass that into the timeConverter function,
-        //       and save the result in a variable.
-        // const converted = timeConverter(time);
-        console.log(time);
+            // DONE: Get the current time, pass that into the timeConverter function,
+            //       and save the result in a variable.
+            // const converted = timeConverter(time);
+            console.log(time);
 
-        // DONE: Used the span to "combine" id gamertimer defined in html.
-        $("#timerPart2").html(time + " seconds");
+            // DONE: Used the span to "combine" id gamertimer defined in html.
+            $("#timerPart2").html(time + " seconds");
+        }
+        else { !clockRunning }
+        // $("#gameTimer").css("display", "none");
     }
-    else { !clockRunning}
-    // $("#gameTimer").css("display", "none");
-    }
 
 
-
-
-    //create an object to store my questions and answers
-
-    let qNa = {
-        question: "what is my first question",
-        answer: 'my answer is an array element',
-
-        // place users possible guesses in an array 
-        userGuess: [option1, option2, option3, option4, answerId, answerText],
-        giphy: "https://giv"
-    }
 
 
     
+
+
+
     function startButton() {
-        alert("startbutton");
+    // alert for testing 
+    // alert("start button");
 
         let startButton = $("<button>");
 
         // added class buttonProperties to button
         startButton.addClass("buttonProperties");
+        startButton.addClass("btn btn-primary btn-lg");
 
         //labled the button START GAME
-        startButton.html('<p> START GAME </p>'); 
+        startButton.html('<p> START GAME </p>');
 
         // added button to start-button div
-        $("#start-button").append( startButton);
+        $("#start-button").append(startButton);
 
         // adding css properties to button 
         $(".buttonProperties").css("background", "pink");
         $(".buttonProperties").css("margin-left", "400px");
-        
+
         // $("#start-button").css("background-color", "pink");
+        $(".buttonProperties").on("click", function () {
 
-        count();
+            count();
 
-        // unhide gametime button
-        $("#gameTimer").css("display", "inline-block");
-        
+            // unhide gametime button
+            $("#gameTimer").css("display", "inline-block");
+
+            // hide the button after you click on it
+            $(".buttonProperties").css("display", "none");
+        })
     }
 
     function playGame() {
         alert("playGame");
     }
 
-   
+
     // playGame();
 
 
