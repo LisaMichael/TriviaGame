@@ -79,9 +79,14 @@ if (time >0) {
         giphy: "https://giv"
     }
 
+
+    
     function startButton() {
         alert("startbutton");
         count();
+
+        // unhide start button
+        $("#gameTimer").css("display", "inline-block");
     }
 
     function playGame() {
