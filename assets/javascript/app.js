@@ -50,12 +50,11 @@ $(document).ready(function () {
 
     // when page loads display only start button 
     startButton();
-
     //click start button to start game which
 
     // timer displays  AND //question display 
 
-    
+
 
     // question must be answered before timer reaches zero
 
@@ -69,7 +68,7 @@ $(document).ready(function () {
     // display button to play again
 
 
-
+function timerIsRunning() {
     // start page with clock running =false
     if (!clockRunning) {
 
@@ -77,8 +76,9 @@ $(document).ready(function () {
         intervalId = setInterval(count, 1000);
         clockRunning = true;
     }
-    else { !clockRunning }
+    // else { clockRunning =false; }
 
+}
 
 
     function count() {
@@ -96,7 +96,7 @@ $(document).ready(function () {
             // DONE: Used the span to "combine" id gamertimer defined in html.
             $("#timerPart2").html(time + " seconds");
         }
-        else { !clockRunning }
+        else { clockRunning = false; }
         // $("#gameTimer").css("display", "none");
     }
 
@@ -111,6 +111,8 @@ $(document).ready(function () {
     // alert for testing 
     // alert("start button");
 
+
+
         let startButton = $("<button>");
 
         // added class buttonProperties to button
@@ -124,12 +126,13 @@ $(document).ready(function () {
         $("#start-button").append(startButton);
 
         // adding css properties to button 
-        $(".buttonProperties").css("background", "pink");
+        $(".buttonProperties").css("background-color", "pink");
         $(".buttonProperties").css("margin-left", "400px");
 
         // $("#start-button").css("background-color", "pink");
         $(".buttonProperties").on("click", function () {
-
+clockRunning=false;
+timerIsRunning();
             count();
 
             // unhide gametime button
