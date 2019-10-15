@@ -18,7 +18,27 @@ $(document).ready(function () {
     let intervalId;
 
 
+    // when page loads display only start button 
 
+    //click start button to start game 
+
+    // timer displays  AND //question display 
+
+
+    // question must be answered before timer reaches zero
+
+    // if question is answered correctly , dispplay giphy 
+
+
+    //else  display WRONG !!! 
+
+    // Once all questions are answered, display score results 
+
+    // display button to play again
+
+
+
+// start page with clock running =false
     if (!clockRunning) {
         intervalId = setInterval(count, 1000);
         clockRunning = true;
