@@ -1,0 +1,26 @@
+body { 
+     
+    
+    background-image: url("../images/cn.jpg");
+    
+}
+
+header {
+    text-align: center;
+    margin-top: 30px;
+    /* margin-left: 18%; */
+    /* position: absolute; */
+    /* opacity: 1; */
+    /* z-index: 1; */
+}
+
+.wrapper {
+    margin-top: 15px;
+background-color: rgb(252, 255, 93);
+/* opacity: .5; */
+height: 575px;
+left: 17%;
+right: 17%;
+position: absolute;
+/* z-index: 0; */
+} 
