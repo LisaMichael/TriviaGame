@@ -42,7 +42,7 @@ $(document).ready(function () {
         answerId: 2,
         question: "What cartoon character was Walt Disney's favorite?",
         answer: "Goofy",
-        userGuess: ["Minnie", "Jiminey Crickett", "Goofy", "Daisey"],
+        userGuess: [{answerText: "Minnie", answerId: 1}, "Jiminey Crickett", "Goofy", "Daisey"],
         giphy: "https://media.giphy.com/media/4ADaU1Q10Wh0I/giphy.gif"
     }
 
@@ -68,6 +68,7 @@ $(document).ready(function () {
     // display button to play again
 
 
+ // function to start countdown timer 
 function timerIsRunning() {
     // start page with clock running =false
     if (!clockRunning) {
@@ -78,32 +79,28 @@ function timerIsRunning() {
     }
     // else { clockRunning =false; }
 
+    
 }
 
-
+ // used Week 5, exercise 10, the stop watch exercise to assist me with writing up 
+ // the timer portion of this
     function count() {
 
-        if (time > 0) {
-
-            // DONE: increment time by 1, remember we cant use "this" here.
-            time--;
-
-            // DONE: Get the current time, pass that into the timeConverter function,
-            //       and save the result in a variable.
+        if (time >= 0) {
+            
+           
             // const converted = timeConverter(time);
             console.log(time);
 
-            // DONE: Used the span to "combine" id gamertimer defined in html.
+            //  Used the span to "combine" id gamertimer defined in html.
             $("#timerPart2").html(time + " seconds");
+
+// Decrement time by 1, remember we cant use "this" here.
+time--;
         }
         else { clockRunning = false; }
         // $("#gameTimer").css("display", "none");
     }
-
-
-
-
-    
 
 
 
@@ -125,11 +122,15 @@ function timerIsRunning() {
         // added button to start-button div
         $("#start-button").append(startButton);
 
-        // adding css properties to button 
-        $(".buttonProperties").css("background-color", "pink");
-        $(".buttonProperties").css("margin-left", "400px");
 
-        // $("#start-button").css("background-color", "pink");
+        // moved css properties to style.css and now styling works properly 
+        // lesson learned, css defined in .js over rides style.css 
+        // adding css properties to button 
+        // $(".buttonProperties").css("background-color", "pink");
+        // $(".buttonProperties").css("margin-left", "350px");
+
+        
+    
         $(".buttonProperties").on("click", function () {
 clockRunning=false;
 timerIsRunning();
