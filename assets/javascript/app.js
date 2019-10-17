@@ -7,25 +7,23 @@ $(document).ready(function () {
     let wins = 0;
     let losses = 0;
     let unanswered = 0;
-    let option1 = "";
-    let option2 = "";
-    let option3 = "";
-    let option4 = "";
+    let question=0;
     let answerId = 0;
     let answerText = "";
     let clockRunning = false;
     let time = 30;
     let intervalId;
+    questionSet=0;
 
     //create an object to store my questions and answers
     // let questionList = [
-    let qNa = {
+    let question0 = {
         answerId: 0,
         question: "what is my first question",
         answer: 'my answer is an array element',
 
         // place users possible guesses in an array 
-        userGuess: [option1, option2, option3, option4, answerId, answerText],
+        userGuess: ["option1", "option2", "option3", "option4"],
         giphy: "https://media.giphy.com/media/l4KibK3JwaVo0CjDO/giphy.gif"
     }
 
@@ -49,7 +47,7 @@ $(document).ready(function () {
         giphy: "https://media.giphy.com/media/4ADaU1Q10Wh0I/giphy.gif"
     };
 
-
+let questionArray = [question0, question1, question2];
 
     // when page loads display only start button 
 
@@ -57,21 +55,31 @@ $(document).ready(function () {
     // startButton();
 
     //click start button to start game which
-    // timer displays  AND //question display 
+    // timer displays  AND display question
+    
+    //question display 
 
+// function displayQuestion() {
 
     let questionToAnswer = $("<div>");
-    questionToAnswer.html(question1.question);
+    questionToAnswer.html(questionArray[questionSet].question);
     $("#questions").append(questionToAnswer);
 
-    // create a for loop where i =4 , to display the 4 possible answers
+  // display the 4 possible answers
 
-    // for (let i=0; 1 <4; i++){
-    //     let questionChoices  = $("<div>");
-    //     questionChoices.html(question1.userGuess[i]);
-    //     $("#possibleAnswers").append(questionChoices);
-    // }
+  const questionlist = $('#possibleAnswers');
 
+
+  // usedhttps://www.javatpoint.com/jquery-addclass to assist  
+
+        for ( i=0; i<4; i++) {
+      const currentQuestion = $('<div>' + questionArray[questionSet].userGuess[i] + '</div>');
+      currentQuestion.addClass('data-mask flex-center',i);
+
+      questionlist.append(currentQuestion);
+    }
+
+// }
 
 
     // question must be answered before timer reaches zero
