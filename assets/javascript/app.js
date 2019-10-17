@@ -14,7 +14,7 @@ $(document).ready(function () {
     // let time = 30;
 
     // set timer =5 for testing
-    let time =3;
+    let time = 3;
     let intervalId;
 
     //will use questionSet to scroll through questions objects when time = 0
@@ -69,6 +69,7 @@ $(document).ready(function () {
     function displayQuestion() {
 
         let questionToAnswer = $("<div>");
+        questionToAnswer.addClass("hoverdiv");
         questionToAnswer.html(questionArray[questionSet].question);
         $("#questions").append(questionToAnswer);
 
@@ -84,7 +85,7 @@ $(document).ready(function () {
 
             // need to add class to take advantage of bootstrap
             // currentQuestion.addClass('data-mask flex-center', i);
-
+            currentQuestion.addClass("hoverdiv");
             questionlist.append(currentQuestion);
         }
 
@@ -111,9 +112,9 @@ $(document).ready(function () {
             //set intervalId = 1 sec
             intervalId = setInterval(count, 1000);
             clockRunning = true;
-            
+
         }
-        
+
         // else { clockRunning =false; }
 
 
@@ -134,22 +135,25 @@ $(document).ready(function () {
 
             // Decrement time by 1, remember we cant use "this" here.
             time--;
-           
-        }
-        // else { 
-           
-            // clockRunning = false;
-            // questionSet++;
-        //  }
-        // questionArray.length = -questionArray.length;
 
-        if(time< 0 && time > -3 ){
+        }
+
+        //length of array is 3 but i need a negative value to if statement
+        //so we end the if statement at the end of the questionArray
+
+
+        if (time < 0 && time > -3) {
+
+            //increment question set to move onto the next question
             questionSet++;
+
+            // empty existing question and possible answers
             $("#questions").empty();
             $("#possibleAnswers").empty();
-            // currentQuestion.empty();
+
+            //display next question
             displayQuestion();
-            time=3;
+            time = 3;
         }
     }
 
