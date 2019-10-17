@@ -13,7 +13,7 @@ $(document).ready(function () {
     let clockRunning = false;
     let time = 30;
     let intervalId;
-    questionSet=0;
+   let questionSet=0;
 
     //create an object to store my questions and answers
     // let questionList = [
@@ -47,19 +47,23 @@ $(document).ready(function () {
         giphy: "https://media.giphy.com/media/4ADaU1Q10Wh0I/giphy.gif"
     };
 
+    // placed objects created above into an array
 let questionArray = [question0, question1, question2];
 
     // when page loads display only start button 
 
     // rem out to test new code
-    // startButton();
+    startButton();
 
     //click start button to start game which
     // timer displays  AND display question
     
-    //question display 
 
-// function displayQuestion() {
+
+    //display question and possible answers. 
+    // placed in function
+
+function displayQuestion() {
 
     let questionToAnswer = $("<div>");
     questionToAnswer.html(questionArray[questionSet].question);
@@ -79,7 +83,7 @@ let questionArray = [question0, question1, question2];
       questionlist.append(currentQuestion);
     }
 
-// }
+} //end of displayQuestion function
 
 
     // question must be answered before timer reaches zero
@@ -167,6 +171,7 @@ let questionArray = [question0, question1, question2];
 
             // hide the button after you click on it
             $(".buttonProperties").css("display", "none");
+            displayQuestion();
         })
     }
 
