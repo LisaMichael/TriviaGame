@@ -21,39 +21,51 @@ $(document).ready(function () {
     let questionSet = 0;
 
     //create an object to store my questions and answers
-    // let questionList = [
-    let question0 = {
-        answerId: 0,
-        question: "this is my first question",
-        answer: 'my answer is an array element',
+    let questionArray = [
+        {
+            question: 0,
+            answerId: 0,
+            question: "this is my first question",
+            answer: 'my answer is an array element',
 
-        // place users possible guesses in an array 
-        userGuess: ["option1", "option2", "option3", "option4"],
-        giphy: "https://media.giphy.com/media/l4KibK3JwaVo0CjDO/giphy.gif"
-    }
+            // place users possible guesses in an array 
+            userGuess: ["option1", "option2", "option3", "option4"],
+            giphy: "https://media.giphy.com/media/l4KibK3JwaVo0CjDO/giphy.gif"
+        },
 
 
-    let question1 = {
-        answerId: 1,
-        question: "What is Peter Griffin's wife's name?",
-        answer: "Lois",
-        userGuess: ["Marge", "Peggy", "Wilma", "Lois"],
-        giphy: "https://media.giphy.com/media/26ufdkz27PfQJ7NEQ/giphy.gif"
-    }
+    {
+            question: 1,
+            answerId: 1,
+            question: "What is Peter Griffin's wife's name?",
+            answer: "Lois",
+            userGuess: ["Marge", "Peggy", "Wilma", "Lois"],
+            giphy: "https://media.giphy.com/media/26ufdkz27PfQJ7NEQ/giphy.gif"
+        },
 
-    let question2 = {
-        answerId: 2,
-        question: "What cartoon character was Walt Disney's favorite?",
-        answer: "Goofy",
+    {
+            question: 2,
+            answerId: 2,
+            question: "What cartoon character was Walt Disney's favorite?",
+            answer: "Goofy",
 
-        // recommendation made from jim 
-        // userGuess: [{ answerText: "Minnie", answerId: 1 }, "Jiminey Crickett", "Goofy", "Daisey"],
-        userGuess: ["Minie", "Jimminy Crickett", "Goofy", "Daisy"],
-        giphy: "https://media.giphy.com/media/4ADaU1Q10Wh0I/giphy.gif"
-    };
+            // recommendation made from jim 
+            // userGuess: [{ answerText: "Minnie", answerId: 1 }, "Jiminey Crickett", "Goofy", "Daisey"],
+            userGuess: ["Minie", "Jimminy Crickett", "Goofy", "Daisy"],
+            giphy: "https://media.giphy.com/media/4ADaU1Q10Wh0I/giphy.gif"
+        },
+
+    {
+            question: 3,
+            answerId: 3,
+            question: "What did Dilbert name his dog ? ",
+            userGuess: ["DogPile", "Blog the Dog", "Dogbert", "Fifo"],
+            giphy: "need to find one"
+        }
+    ];
 
     // placed questions objects created above into an array
-    let questionArray = [question0, question1, question2];
+    // let questionArray = [question0, question1, question2];
 
     // when page loads display only start button 
     startButton();
@@ -68,23 +80,25 @@ $(document).ready(function () {
 
     function displayQuestion() {
 
+        //created a div to display question property in questionArray[]
         let questionToAnswer = $("<div>");
-        questionToAnswer.addClass("hoverdiv");
+        questionToAnswer.addClass("questionCSS");
         questionToAnswer.html(questionArray[questionSet].question);
         $("#questions").append(questionToAnswer);
-
+        // questionArray[questionSet] === questionArray.questionSet
         // created for loop to display the 4 possible answers
 
         const questionlist = $('#possibleAnswers');
 
-
         // usedhttps://www.javatpoint.com/jquery-addclass to assist  
+        // also wk 6 customer-object exercise assisted me with the array
 
         for (i = 0; i < 4; i++) {
             const currentQuestion = $('<div>' + questionArray[questionSet].userGuess[i] + '</div>');
 
             // need to add class to take advantage of bootstrap
             // currentQuestion.addClass('data-mask flex-center', i);
+            currentQuestion.addClass("questionCurrent");
             currentQuestion.addClass("hoverdiv");
             questionlist.append(currentQuestion);
         }
@@ -142,10 +156,10 @@ $(document).ready(function () {
         //so we end the if statement at the end of the questionArray
 
 
-        if (time < 0 && time > -3) {
-
-            //increment question set to move onto the next question
-            questionSet++;
+        if (time < 0 && questionSet < questionArray.length -1) {
+console.log("question set = " + questionSet);
+             //increment question set to move onto the next question
+             questionSet++;
 
             // empty existing question and possible answers
             $("#questions").empty();
@@ -153,8 +167,9 @@ $(document).ready(function () {
 
             //display next question
             displayQuestion();
+           
             time = 3;
-        }
+        } 
     }
 
 
