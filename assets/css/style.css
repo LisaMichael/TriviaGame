@@ -1,3 +1,4 @@
+
 body { 
      
     
@@ -7,26 +8,24 @@ body {
 
 header {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 60px;
     /* margin-left: 18%; */
-    /* position: absolute; */
-    /* opacity: 1; */
+    position: relative;
     /* z-index: 1; */
 }
 
 .wrapper {
-    margin-top: 15px;
+margin-top: 15px;
 background-color: rgb(252, 255, 93);
-/* opacity: .5; */
 height: 575px;
-left: 17%;
-right: 17%;
-position: absolute;
+left: 20%;
+right: 20%;
+/* position: absolute; */
 /* z-index: 0; */
 } 
 
 h2{
-    display: hidden;
+    display: none;
 }
 
 #gameTimer {
@@ -38,4 +37,31 @@ background-color: pink;
 margin-left: 350px;
 }
 
-.btn-primary:hover { border-color: rgb(252, 13, 65); background-color: rgb(20, 250, 231); }
+.btn-primary:hover { 
+    border-width: 5px;
+
+    border-color: rgb(144, 236, 82); background-color: rgb(20, 250, 231);
+   
+ }
+
+ .hoverdiv:hover {
+    height: 40px;
+    width: 500px;
+    border-width: 5px;
+    padding: 5px;
+    /* padding-color: #ffffff; */
+    border-color: rgb(144, 236, 82); background-color: rgb(20, 250, 231);
+    font-weight: bold;
+ }
+
+ .questionCSS {
+     text-align: center;
+     font-weight: bolder;
+ }
+
+ .questionCurrent {
+    
+     margin-left: 175px;
+ }
+
+
