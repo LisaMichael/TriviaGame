@@ -8,25 +8,26 @@ $(document).ready(function () {
     let losses = 0;
     let unanswered = 0;
     // let question = 0;
-    // let answerId = 0;
+    // let answerId ;
     // let answerText = "";
     let clockRunning = false;
     // let time = 30;
 
     // set timer =5 for testing
-    let time = 3;
+    let time = 30;
     let intervalId;
 
     //will use questionSet to scroll through questions objects when time = 0
     let questionSet = 0;
 
+    // placed questions objects created above into an array
     //create an object to store my questions and answers
     let questionArray = [
         {
             question: 0,
             answerId: 0,
             question: "this is my first question",
-            answer: 'my answer is an array element',
+            answer: 'my answer is my first answer ',
 
             // place users possible guesses in an array 
             userGuess: ["option1", "option2", "option3", "option4"],
@@ -34,7 +35,7 @@ $(document).ready(function () {
         },
 
 
-    {
+        {
             question: 1,
             answerId: 1,
             question: "What is Peter Griffin's wife's name?",
@@ -43,7 +44,7 @@ $(document).ready(function () {
             giphy: "https://media.giphy.com/media/26ufdkz27PfQJ7NEQ/giphy.gif"
         },
 
-    {
+        {
             question: 2,
             answerId: 2,
             question: "What cartoon character was Walt Disney's favorite?",
@@ -55,25 +56,22 @@ $(document).ready(function () {
             giphy: "https://media.giphy.com/media/4ADaU1Q10Wh0I/giphy.gif"
         },
 
-    {
+        {
             question: 3,
             answerId: 3,
             question: "What did Dilbert name his dog ? ",
-            userGuess: ["DogPile", "Blog the Dog", "Dogbert", "Fifo"],
+            userGuess: ["DogPile", "Blog the Dog", "Dogbert", "FiFo"],
             giphy: "need to find one"
         }
     ];
 
-    // placed questions objects created above into an array
-    // let questionArray = [question0, question1, question2];
+
 
     // when page loads display only start button 
-    startButton();
-
     //click start button to start game which
     // timer displays  AND display question
 
-
+    startButton();
 
     //display question and possible answers. 
     // placed in function
@@ -100,13 +98,50 @@ $(document).ready(function () {
             // currentQuestion.addClass('data-mask flex-center', i);
             currentQuestion.addClass("questionCurrent");
             currentQuestion.addClass("hoverdiv");
+            // referenced for attr info  https://www.w3schools.com/jquery/html_attr.asp
+            currentQuestion.attr("data-index", i);
             questionlist.append(currentQuestion);
+
         }
+
+
+
+        $('.questionCurrent').on("click", function () {
+            if (time < 0) { console.log("times up") } else {
+
+                // working on this part of the code now
+                //extract the value from the div i clicked on
+                console.log("can u see me?");
+                indexValue = ($(this).attr("data-index"));
+                if (indexValue == (questionArray[questionSet].answerId)) {
+                    console.log("you picked the correct answer ");
+                    questionSet++;
+                    displayQuestion();
+                }
+                else { console.log("wrong answer") }
+
+            }
+        });
+
 
     } //end of displayQuestion function
 
+    // +++++++++++
+    // +++++++++++
+    // test 
+
+    function test() {
+        console.log("this is a test in a function")
+    }
+
 
     // question must be answered before timer reaches zero
+
+    // function userClick() {
+
+
+    // }
+
 
     // if question is answered correctly , display correct giphy 
 
@@ -156,10 +191,10 @@ $(document).ready(function () {
         //so we end the if statement at the end of the questionArray
 
 
-        if (time < 0 && questionSet < questionArray.length -1) {
-console.log("question set = " + questionSet);
-             //increment question set to move onto the next question
-             questionSet++;
+        if (time < 0 && questionSet < questionArray.length - 1) {
+            console.log("question set = " + questionSet);
+            //increment question set to move onto the next question
+            questionSet++;
 
             // empty existing question and possible answers
             $("#questions").empty();
@@ -167,9 +202,9 @@ console.log("question set = " + questionSet);
 
             //display next question
             displayQuestion();
-           
-            time = 3;
-        } 
+
+            time = 30;
+        }
     }
 
 
