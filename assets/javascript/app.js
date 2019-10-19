@@ -37,7 +37,7 @@ $(document).ready(function () {
 
         {
             question: 1,
-            answerId: 1,
+            answerId: 3,
             question: "What is Peter Griffin's wife's name?",
             answer: "Lois",
             userGuess: ["Marge", "Peggy", "Wilma", "Lois"],
@@ -58,7 +58,7 @@ $(document).ready(function () {
 
         {
             question: 3,
-            answerId: 3,
+            answerId: 2,
             question: "What did Dilbert name his dog ? ",
             userGuess: ["DogPile", "Blog the Dog", "Dogbert", "FiFo"],
             giphy: "need to find one"
@@ -116,6 +116,7 @@ $(document).ready(function () {
                 if (indexValue == (questionArray[questionSet].answerId)) {
                     console.log("you picked the correct answer ");
                     questionSet++;
+                    emptyQA();
                     displayQuestion();
                 }
                 else { console.log("wrong answer") }
@@ -169,6 +170,12 @@ $(document).ready(function () {
 
     }
 
+    function emptyQA() {
+  // empty existing question and possible answers
+  $("#questions").empty();
+  $("#possibleAnswers").empty();
+
+}
     // used Week 5, exercise 10, the stop watch exercise to assist me with writing up 
     // the timer portion of this
     function count() {
@@ -197,8 +204,9 @@ $(document).ready(function () {
             questionSet++;
 
             // empty existing question and possible answers
-            $("#questions").empty();
-            $("#possibleAnswers").empty();
+            // $("#questions").empty();
+            // $("#possibleAnswers").empty();
+            emptyQA();
 
             //display next question
             displayQuestion();
