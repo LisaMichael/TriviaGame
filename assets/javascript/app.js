@@ -24,7 +24,7 @@ $(document).ready(function () {
     //create an object to store my questions and answers
     let questionArray = [
         {
-            question: 0,
+            //  question: 0,
             answerId: 0,
             question: "this is my first question",
             answer: 'my answer is my first answer ',
@@ -36,7 +36,7 @@ $(document).ready(function () {
 
 
         {
-            question: 1,
+            //  question: 1,
             answerId: 3,
             question: "What is Peter Griffin's wife's name?",
             answer: "Lois",
@@ -45,7 +45,7 @@ $(document).ready(function () {
         },
 
         {
-            question: 2,
+            //  question: 2,
             answerId: 2,
             question: "What cartoon character was Walt Disney's favorite?",
             answer: "Goofy",
@@ -57,12 +57,17 @@ $(document).ready(function () {
         },
 
         {
-            question: 3,
+            //   question: 3,
             answerId: 2,
             question: "What did Dilbert name his dog ? ",
             userGuess: ["DogPile", "Blog the Dog", "Dogbert", "FiFo"],
             giphy: "need to find one"
-        }
+        },
+        { 
+            answerId: 3,
+            question: "First couple to be televised tv in bed together ?",
+            userGuess: ["George & Jane Jetson", "Pebbles & Bam Bam", "Fred & Wilma Flintstone", "Mickey Mouse & Minnie Mouse"] }
+           
     ];
 
 
@@ -114,20 +119,11 @@ $(document).ready(function () {
                 console.log("text inside line 114 ");
                 indexValue = ($(this).attr("data-index"));
                 if (indexValue == parseInt((questionArray[questionSet].answerId))) {
-                    console.log("ok");
-                    clearInterval(intervalId);
-                    clockRunning=false;
-                    time=30;
-                    questionSet++;
-                    emptyQA();
-                    displayQuestion();
-                    timerIsRunning();
-                    count();
+                   correct();
                 }
-                else { console.log("wrong answer");
-            
-
-            }
+                else {
+                   wrong();
+                }
 
             }
         });
@@ -135,9 +131,29 @@ $(document).ready(function () {
 
     } //end of displayQuestion function
 
-    // +++++++++++
-    // +++++++++++
-    
+    function correct() {
+        console.log("ok");
+        clearInterval(intervalId);
+        clockRunning = false;
+        time = 30;
+        questionSet++;
+        emptyQA();
+        displayQuestion();
+        timerIsRunning();
+        count();
+        wins++;
+    }
+
+function wrong() {
+    console.log("wrong answer");
+    emptyQA();
+    time = 3;
+    let incorrectimg = $("<img>");
+    incorrectimg.addClass("incorrect-image");
+    incorrectimg.attr("src", "./assets/images/wrong.gif");
+    $('#possibleAnswers').append(incorrectimg);
+    losses++;
+}
 
     function test() {
         console.log("this is a test in a functionat global level")
@@ -179,12 +195,12 @@ $(document).ready(function () {
     }
 
     function emptyQA() {
-  // empty existing question and possible answers
-  console.log('you are emptying questions and answers');
-  $("#questions").empty();
-  $("#possibleAnswers").empty();
+        // empty existing question and possible answers
+        console.log('you are emptying questions and answers');
+        $("#questions").empty();
+        $("#possibleAnswers").empty();
 
-}
+    }
     // used Week 5, exercise 10, the stop watch exercise to assist me with writing up 
     // the timer portion of this
     function count() {
