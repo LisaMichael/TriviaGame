@@ -111,15 +111,23 @@ $(document).ready(function () {
 
                 // working on this part of the code now
                 //extract the value from the div i clicked on
-                console.log("can u see me?");
+                console.log("text inside line 114 ");
                 indexValue = ($(this).attr("data-index"));
-                if (indexValue == (questionArray[questionSet].answerId)) {
-                    console.log("you picked the correct answer ");
+                if (indexValue == parseInt((questionArray[questionSet].answerId))) {
+                    console.log("ok");
+                    clearInterval(intervalId);
+                    clockRunning=false;
+                    time=30;
                     questionSet++;
                     emptyQA();
                     displayQuestion();
+                    timerIsRunning();
+                    count();
                 }
-                else { console.log("wrong answer") }
+                else { console.log("wrong answer");
+            
+
+            }
 
             }
         });
@@ -129,10 +137,10 @@ $(document).ready(function () {
 
     // +++++++++++
     // +++++++++++
-    // test 
+    
 
     function test() {
-        console.log("this is a test in a function")
+        console.log("this is a test in a functionat global level")
     }
 
 
@@ -172,6 +180,7 @@ $(document).ready(function () {
 
     function emptyQA() {
   // empty existing question and possible answers
+  console.log('you are emptying questions and answers');
   $("#questions").empty();
   $("#possibleAnswers").empty();
 
