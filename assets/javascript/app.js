@@ -86,7 +86,7 @@ $(document).ready(function () {
     // placed in function
 
     function displayQuestion() {
-        if (questionSet < questionArray.length - 1) {
+        if (questionSet < questionArray.length) {
 
             //created a div to display question property in questionArray[]
             let questionToAnswer = $("<div>");
