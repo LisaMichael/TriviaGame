@@ -1,5 +1,7 @@
 
 
+
+
 $(document).ready(function () {
 
 
@@ -19,7 +21,7 @@ $(document).ready(function () {
 
     //will use questionSet to scroll through questions objects when time = 0
     let questionSet = 0;
-    let correctAnswer="";
+    let correctAnswer = "";
 
     // placed questions objects created above into an array
     //create an object to store my questions and answers
@@ -64,11 +66,12 @@ $(document).ready(function () {
             userGuess: ["DogPile", "Blog the Dog", "Dogbert", "FiFo"],
             giphy: "need to find one"
         },
-        { 
+        {
             answerId: 3,
             question: "First couple to be televised tv in bed together ?",
-            userGuess: ["George & Jane Jetson", "Pebbles & Bam Bam", "Fred & Wilma Flintstone", "Mickey Mouse & Minnie Mouse"] }
-           
+            userGuess: ["George & Jane Jetson", "Pebbles & Bam Bam", "Fred & Wilma Flintstone", "Mickey Mouse & Minnie Mouse"]
+        }
+
     ];
 
 
@@ -83,70 +86,84 @@ $(document).ready(function () {
     // placed in function
 
     function displayQuestion() {
-if (questionSet < questionArray.length - 1){
-        //created a div to display question property in questionArray[]
-        let questionToAnswer = $("<div>");
-        questionToAnswer.addClass("questionCSS");
-        questionToAnswer.html(questionArray[questionSet].question);
-        $("#questions").append(questionToAnswer);
-        // questionArray[questionSet] === questionArray.questionSet
-        // created for loop to display the 4 possible answers
+        if (questionSet < questionArray.length - 1) {
 
-        const questionlist = $('#possibleAnswers');
+            //created a div to display question property in questionArray[]
+            let questionToAnswer = $("<div>");
+            questionToAnswer.addClass("questionCSS");
+            questionToAnswer.html(questionArray[questionSet].question);
+            $("#questions").append(questionToAnswer);
+            // questionArray[questionSet] === questionArray.questionSet
+            // created for loop to display the 4 possible answers
 
-        // usedhttps://www.javatpoint.com/jquery-addclass to assist  
-        // also wk 6 customer-object exercise assisted me with the array
+            const questionlist = $('#possibleAnswers');
 
-        for (i = 0; i < 4; i++) {
-            const currentQuestion = $('<div>' + questionArray[questionSet].userGuess[i] + '</div>');
+            // usedhttps://www.javatpoint.com/jquery-addclass to assist  
+            // also wk 6 customer-object exercise assisted me with the array
 
-            // need to add class to take advantage of bootstrap
-            // currentQuestion.addClass('data-mask flex-center', i);
-            currentQuestion.addClass("questionCurrent");
-            currentQuestion.addClass("hoverdiv");
-            // referenced for attr info  https://www.w3schools.com/jquery/html_attr.asp
-            currentQuestion.attr("data-index", i);
-            questionlist.append(currentQuestion);
+            for (i = 0; i < 4; i++) {
+                const currentQuestion = $('<div>' + questionArray[questionSet].userGuess[i] + '</div>');
 
-        }
-
-
-
-        $('.questionCurrent').on("click", function () {
-            if (time < 0) { console.log("times up") } else {
-
-                // working on this part of the code now
-                //extract the value from the div i clicked on
-                console.log("text inside line 114 ");
-                indexValue = ($(this).attr("data-index"));
-                if (indexValue == parseInt((questionArray[questionSet].answerId))) {
-                   correct();
-                }
-                else {
-                    let correctAnswer=  questionArray[questionSet].userGuess[i];
-                   wrong();
-                }
+                // need to add class to take advantage of bootstrap
+                // currentQuestion.addClass('data-mask flex-center', i);
+                currentQuestion.addClass("questionCurrent");
+                currentQuestion.addClass("hoverdiv");
+                // referenced for attr info  https://www.w3schools.com/jquery/html_attr.asp
+                currentQuestion.attr("data-index", i);
+                questionlist.append(currentQuestion);
 
             }
-        });
 
-    }else {
-        scoreboard()
-    }
+
+
+            $('.questionCurrent').on("click", function () {
+                if (time < 0) { 
+                    console.log("times up") } 
+                    else {
+
+                    // working on this part of the code now
+                    //extract the value from the div i clicked on
+                    console.log("text inside line 114 ");
+                    indexValue = ($(this).attr("data-index"));
+                    if (indexValue == (questionArray[questionSet].answerId)) {
+                        correct();
+                    }
+                    else {
+                        let correctAnswer = questionArray[questionSet].userGuess[i];
+                        wrong();
+                    }
+
+                }
+            });
+
+        }
+        // else {
+        //     scoreboard()
+        // }
 
     } //end of displayQuestion function
 
-function scoreboard(){
-    alert("scoreboard window"); 
-    time=3;
-    clearInterval(intervalId);
-    let scoreWin = $('<div>'); 
-    scoreWin.html("Wins: "  + wins);
-    $("#possibleAnswers").append("scoreWins");
-}
+    function scoreboard() {
+        alert("scoreboard window");
+        time = 3;
+        clearInterval(intervalId);
+
+
+        let scoreLosses = $('<div>');
+        scoreLosses.html('<h3>Losses: ' + losses + '</h3>');
+
+        let scoreWin = $('<div>');
+        scoreWin.html('<h3>Wins: ' + wins + '</h3>');
+        // indexValue = ($(this).attr("data-index"));
+
+        $("#possibleAnswers").append(scoreLosses);
+        $("#possibleAnswers").append(scoreWin);
+        // }
+
+    }
 
     function correct() {
-       
+
 
         clearInterval(intervalId);
         clockRunning = false;
@@ -154,23 +171,30 @@ function scoreboard(){
         questionSet++;
         emptyQA();
         displayQuestion();
-        timerIsRunning();
+        // timerIsRunning();
         count();
         wins++;
     }
 
-function wrong() {
-    console.log("wrong answer");
-    emptyQA();
-    // $("#timerPart2").html(correctAnswer);
-    $("#possibleAnswers").html("The correct answer is: ");
-    time = 3;
-    let incorrectimg = $("<img>");
-    incorrectimg.addClass("incorrect-image");
-    incorrectimg.attr("src", "./assets/images/wrong.gif");
-    $('#possibleAnswers').append(incorrectimg);
-    losses++;
-}
+    function wrong() {
+        console.log("wrong answer");
+        emptyQA();
+        losses++;
+
+
+        // display the correct answer
+        let correctDisplay = questionArray[questionSet].answer;
+        console.log(correctDisplay);
+        $("#possibleAnswers").html("<h3>The correct answer is: " + correctDisplay + "</h3>");
+        time = 3;
+
+        // display incorrect gif
+        let incorrectimg = $("<img>");
+        incorrectimg.addClass("incorrect-image");
+        incorrectimg.attr("src", "./assets/images/wrong.gif");
+        $('#possibleAnswers').append(incorrectimg);
+
+    }
 
     function test() {
         console.log("this is a test in a functionat global level")
@@ -253,7 +277,7 @@ function wrong() {
             //display next question
             displayQuestion();
 
-            time = 30;
+            time = 3;
         }
     }
 
