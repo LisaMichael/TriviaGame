@@ -64,4 +64,8 @@ margin-left: 350px;
      margin-left: 175px;
  }
 
+ #displayCorrect {
+     display: none;
+ }
+
 
