@@ -34,7 +34,7 @@ $(document).ready(function () {
 
             // place users possible guesses in an array 
             userGuess: ["option1", "option2", "option3", "option4"],
-            giphy: "https://media.giphy.com/media/l4KibK3JwaVo0CjDO/giphy.gif"
+            giphy: "question0.gif",
         },
 
 
@@ -44,7 +44,7 @@ $(document).ready(function () {
             question: "What is Peter Griffin's wife's name?",
             answer: "Lois",
             userGuess: ["Marge", "Peggy", "Wilma", "Lois"],
-            giphy: "https://media.giphy.com/media/26ufdkz27PfQJ7NEQ/giphy.gif"
+            giphy: "question1.gif",
         },
 
         {
@@ -52,11 +52,12 @@ $(document).ready(function () {
             answerId: 2,
             question: "What cartoon character was Walt Disney's favorite?",
             answer: "Goofy",
+            giphy: "question2.gif",
 
             // recommendation made from jim 
             // userGuess: [{ answerText: "Minnie", answerId: 1 }, "Jiminey Crickett", "Goofy", "Daisey"],
             userGuess: ["Minie", "Jimminy Crickett", "Goofy", "Daisy"],
-            giphy: "https://media.giphy.com/media/4ADaU1Q10Wh0I/giphy.gif"
+            giphy: "question3.gif"
         },
 
         {
@@ -64,9 +65,10 @@ $(document).ready(function () {
             answerId: 2,
             question: "What did Dilbert name his dog ? ",
             userGuess: ["DogPile", "Blog the Dog", "Dogbert", "FiFo"],
-            giphy: "need to find one"
+            giphy: "question3.gif,"
         },
         {
+            //question4
             answerId: 3,
             question: "First couple to be televised tv in bed together ?",
             userGuess: ["George & Jane Jetson", "Pebbles & Bam Bam", "Fred & Wilma Flintstone", "Mickey Mouse & Minnie Mouse"]
@@ -86,56 +88,73 @@ $(document).ready(function () {
     // placed in function
 
     function displayQuestion() {
-        if (questionSet < questionArray.length) {
 
-            //created a div to display question property in questionArray[]
-            let questionToAnswer = $("<div>");
-            questionToAnswer.addClass("questionCSS");
-            questionToAnswer.html(questionArray[questionSet].question);
-            $("#questions").append(questionToAnswer);
-            // questionArray[questionSet] === questionArray.questionSet
-            // created for loop to display the 4 possible answers
+        // unhide gametime button
+        $("#displayCorrect").css("display", "none");
 
-            const questionlist = $('#possibleAnswers');
+        if (questionSet > questionArray.length - 1) {
+            console.log("line 90 ... i need the scoreboard");
+            scoreboard();
+        }
+        else {
+            if (questionSet < questionArray.length) {
 
-            // usedhttps://www.javatpoint.com/jquery-addclass to assist  
-            // also wk 6 customer-object exercise assisted me with the array
+                //created a div to display question property in questionArray[]
+                let questionToAnswer = $("<div>");
+                questionToAnswer.addClass("questionCSS");
+                questionToAnswer.html(questionArray[questionSet].question);
+                $("#questions").append(questionToAnswer);
 
-            for (i = 0; i < 4; i++) {
-                const currentQuestion = $('<div>' + questionArray[questionSet].userGuess[i] + '</div>');
+                // created for loop to display the 4 possible answers
 
-                // need to add class to take advantage of bootstrap
-                // currentQuestion.addClass('data-mask flex-center', i);
-                currentQuestion.addClass("questionCurrent");
-                currentQuestion.addClass("hoverdiv");
-                // referenced for attr info  https://www.w3schools.com/jquery/html_attr.asp
-                currentQuestion.attr("data-index", i);
-                questionlist.append(currentQuestion);
+                const questionlist = $('#possibleAnswers');
 
-            }
+                // usedhttps://www.javatpoint.com/jquery-addclass to assist  
+                // also wk 6 customer-object exercise assisted me with the array
 
+                for (i = 0; i < 4; i++) {
+                    const currentQuestion = $('<div>' + questionArray[questionSet].userGuess[i] + '</div>');
 
-
-            $('.questionCurrent').on("click", function () {
-                if (time < 0) { 
-                    console.log("times up") } 
-                    else {
-
-                    // working on this part of the code now
-                    //extract the value from the div i clicked on
-                    console.log("text inside line 114 ");
-                    indexValue = ($(this).attr("data-index"));
-                    if (indexValue == (questionArray[questionSet].answerId)) {
-                        correct();
-                    }
-                    else {
-                        let correctAnswer = questionArray[questionSet].userGuess[i];
-                        wrong();
-                    }
+                    // need to add class to take advantage of bootstrap
+                    // currentQuestion.addClass('data-mask flex-center', i);
+                    currentQuestion.addClass("questionCurrent");
+                    currentQuestion.addClass("hoverdiv");
+                    // referenced for attr info  https://www.w3schools.com/jquery/html_attr.asp
+                    currentQuestion.attr("data-index", i);
+                    questionlist.append(currentQuestion);
 
                 }
-            });
 
+
+
+                $('.questionCurrent').on("click", function () {
+                    if (time < 0) {
+                        console.log("times up")
+                        emptyQA();
+                        unanswered++;
+                        questionSet++;
+                        clearInterval(intervalId);
+                        displayQuestion();
+                    }
+                    else {
+
+                        // working on this part of the code now
+                        //extract the value from the div i clicked on
+                        console.log("text inside line 114 ");
+                        indexValue = ($(this).attr("data-index"));
+                        if (indexValue == (questionArray[questionSet].answerId)) {
+                            correct();
+                        }
+                        else {
+
+                            console.log("this is line 143 - wrong answer");
+                            wrong();
+                        }
+
+                    }
+                });
+
+            }
         }
         // else {
         //     scoreboard()
@@ -180,20 +199,30 @@ $(document).ready(function () {
         console.log("wrong answer");
         emptyQA();
         losses++;
-
-
-        // display the correct answer
-        let correctDisplay = questionArray[questionSet].answer;
-        console.log(correctDisplay);
-        $("#possibleAnswers").html("<h3>The correct answer is: " + correctDisplay + "</h3>");
+        count();
         time = 3;
+        console.log("line 200 " + questionSet);
 
-        // display incorrect gif
-        let incorrectimg = $("<img>");
-        incorrectimg.addClass("incorrect-image");
-        incorrectimg.attr("src", "./assets/images/wrong.gif");
-        $('#possibleAnswers').append(incorrectimg);
+        if (questionSet >= questionArray.length) {
+            scoreboard();
+        } else {
+            // display the correct answer
+            let correctDisplay = questionArray[questionSet].answer;
+            console.log(correctDisplay);
+            // $("#possibleAnswers").html("<h3>The correct answer is: " + correctDisplay + "</h3>");
 
+            // unhide gametime button
+            $("#displayCorrect").css("display", "inline-block");
+            //  Used the span to "combine" id gamertimer defined in html.
+            $("#displayQues").html(correctDisplay);
+
+            // display incorrect gif
+            let incorrectimg = $("<img>");
+            incorrectimg.addClass("incorrect-image");
+            incorrectimg.attr("src", "./assets/images/wrong.gif");
+            $('#possibleAnswers').append(incorrectimg);
+            count();
+        }
     }
 
     function test() {
@@ -268,7 +297,7 @@ $(document).ready(function () {
             console.log("question set = " + questionSet);
             //increment question set to move onto the next question
             questionSet++;
-
+            console.log("question set NOW = " + questionSet);
             // empty existing question and possible answers
             // $("#questions").empty();
             // $("#possibleAnswers").empty();
@@ -317,6 +346,8 @@ $(document).ready(function () {
             // unhide gametime button
             $("#gameTimer").css("display", "inline-block");
 
+
+
             // hide the button after you click on it
             $(".buttonProperties").css("display", "none");
             displayQuestion();
@@ -324,7 +355,7 @@ $(document).ready(function () {
     } // end of startButton function
 
 
-    function playGame() {
+    function playAgain() {
         alert("playGame");
     }
 
