@@ -19,6 +19,7 @@ $(document).ready(function () {
 
     //will use questionSet to scroll through questions objects when time = 0
     let questionSet = 0;
+    let correctAnswer="";
 
     // placed questions objects created above into an array
     //create an object to store my questions and answers
@@ -82,7 +83,7 @@ $(document).ready(function () {
     // placed in function
 
     function displayQuestion() {
-
+if (questionSet < questionArray.length - 1){
         //created a div to display question property in questionArray[]
         let questionToAnswer = $("<div>");
         questionToAnswer.addClass("questionCSS");
@@ -122,17 +123,31 @@ $(document).ready(function () {
                    correct();
                 }
                 else {
+                    let correctAnswer=  questionArray[questionSet].userGuess[i];
                    wrong();
                 }
 
             }
         });
 
+    }else {
+        scoreboard()
+    }
 
     } //end of displayQuestion function
 
+function scoreboard(){
+    alert("scoreboard window"); 
+    time=3;
+    clearInterval(intervalId);
+    let scoreWin = $('<div>'); 
+    scoreWin.html("Wins: "  + wins);
+    $("#possibleAnswers").append("scoreWins");
+}
+
     function correct() {
-        console.log("ok");
+       
+
         clearInterval(intervalId);
         clockRunning = false;
         time = 30;
@@ -147,6 +162,8 @@ $(document).ready(function () {
 function wrong() {
     console.log("wrong answer");
     emptyQA();
+    // $("#timerPart2").html(correctAnswer);
+    $("#possibleAnswers").html("The correct answer is: ");
     time = 3;
     let incorrectimg = $("<img>");
     incorrectimg.addClass("incorrect-image");
