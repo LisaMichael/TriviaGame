@@ -91,7 +91,7 @@ $(document).ready(function () {
 
         if (questionSet > questionArray.length - 1) {
             console.log("line 90 ... i need the scoreboard");
-           timerIsRunning();
+            timerIsRunning();
             scoreboard();
         }
         else {
@@ -189,6 +189,9 @@ $(document).ready(function () {
 
     function correct() {
 
+        // if question is answered correctly , display correct giphy 
+        //add image for correct answer: 
+        correctImage();
 
         clearInterval(intervalId);
         clockRunning = false;
@@ -196,11 +199,9 @@ $(document).ready(function () {
         questionSet++;
         emptyQA();
         displayQuestion();
-        // timerIsRunning();
 
-        // if question is answered correctly , display correct giphy 
-        //add image for correct answer: 
-        correctImage();
+
+
 
 
         count();
@@ -222,17 +223,16 @@ $(document).ready(function () {
         // // used syntax for img src : https://www.w3schools.com/tags/tag_img.asp
         // $('#imageCorrect').html("<img src ='./assets/images/" + questionArray[questionSet].giphy);
 
-        if (questionSet == 0) {
-            // let correctimg = $("<img>");
-            // correctimg.attr("src", "./assets/images/question0.gif");
-            $('#imageCorrect').html("<img src =./assets/images/question1.gif>");
+        if (questionSet === 0) {
+            
+            $('#imageCorrect').append('<img src="./assets/images/question0.gif">');
         } if (questionSet == 1) {
-            $('#imageCorrect').html("<img src =./assets/images/question1.gif");
+            $('#imageCorrect').append('<img src ="./assets/images/question1.gif">');
         }
         if (questionSet == 2) {
-            $('#imageCorrect').html("<img src =./assets/images/question3.gif");
+            $('#imageCorrect').append('<img src ="./assets/images/question2.gif">');
         } if (questionSet == 3) {
-            $('#imageCorrect').html("<img src =./assets/images/question4.gif");
+            $('#imageCorrect').append('<img src ="./assets/images/question4.gif">');
         }
     }
 
@@ -242,6 +242,12 @@ $(document).ready(function () {
         losses++;
         count();
         time = 3;
+
+        clockRunning = false;
+        timerIsRunning();
+
+        displayQuestion();
+
         console.log("line 200 " + questionSet);
 
         //if the questionSet Variable is more than the length of the questionArray
@@ -395,7 +401,7 @@ $(document).ready(function () {
             // hide the button after you click on it
             $(".buttonProperties").css("display", "none");
             displayQuestion();
-            
+
         })
     } // end of startButton function
 
@@ -422,16 +428,19 @@ $(document).ready(function () {
         $(".playProperties").on("click", function () {
 
 
-            clockRunning = false;
-            timerIsRunning();
-            count();
+
 
             // unhide gametime button
             $("#gameTimer").css("display", "inline-block");
             // hide the button after you click on it
-            $(".btn").css("display", "none");
+            $(".playProperties").css("display", "none");
 
-
+            clockRunning = false;
+            timerIsRunning();
+            count();
+            emptyQA();
+            questionSet = 0;
+            clearInterval(intervalId);
             displayQuestion();
         })
     }
