@@ -1,7 +1,5 @@
 
 
-
-
 $(document).ready(function () {
 
 
@@ -16,12 +14,12 @@ $(document).ready(function () {
     // let time = 30;
 
     // set timer =5 for testing
-    let time = 30;
+    let time = 3;
     let intervalId;
 
     //will use questionSet to scroll through questions objects when time = 0
     let questionSet = 0;
-    let correctAnswer = "";
+
 
     // placed questions objects created above into an array
     //create an object to store my questions and answers
@@ -34,7 +32,7 @@ $(document).ready(function () {
 
             // place users possible guesses in an array 
             userGuess: ["option1", "option2", "option3", "option4"],
-            giphy: "question0.gif",
+            giphy: "./assets/images/question0.gif",
         },
 
 
@@ -44,7 +42,7 @@ $(document).ready(function () {
             question: "What is Peter Griffin's wife's name?",
             answer: "Lois",
             userGuess: ["Marge", "Peggy", "Wilma", "Lois"],
-            giphy: "question1.gif",
+            giphy: "./assets/images/question1.gif",
         },
 
         {
@@ -52,12 +50,8 @@ $(document).ready(function () {
             answerId: 2,
             question: "What cartoon character was Walt Disney's favorite?",
             answer: "Goofy",
-            giphy: "question2.gif",
-
-            // recommendation made from jim 
-            // userGuess: [{ answerText: "Minnie", answerId: 1 }, "Jiminey Crickett", "Goofy", "Daisey"],
             userGuess: ["Minie", "Jimminy Crickett", "Goofy", "Daisy"],
-            giphy: "question3.gif"
+            giphy: "./assets/images/question2.gif",
         },
 
         {
@@ -65,13 +59,14 @@ $(document).ready(function () {
             answerId: 2,
             question: "What did Dilbert name his dog ? ",
             userGuess: ["DogPile", "Blog the Dog", "Dogbert", "FiFo"],
-            giphy: "question3.gif,"
+            giphy: "./assets/images/question3.gif",
         },
         {
             //question4
             answerId: 3,
             question: "First couple to be televised tv in bed together ?",
-            userGuess: ["George & Jane Jetson", "Pebbles & Bam Bam", "Fred & Wilma Flintstone", "Mickey Mouse & Minnie Mouse"]
+            userGuess: ["George & Jane Jetson", "Pebbles & Bam Bam", "Fred & Wilma Flintstone", "Mickey Mouse & Minnie Mouse"],
+            giphy: "./assets/images/question4.gif",
         }
 
     ];
@@ -84,6 +79,8 @@ $(document).ready(function () {
 
     startButton();
 
+
+
     //display question and possible answers. 
     // placed in function
 
@@ -94,6 +91,7 @@ $(document).ready(function () {
 
         if (questionSet > questionArray.length - 1) {
             console.log("line 90 ... i need the scoreboard");
+           timerIsRunning();
             scoreboard();
         }
         else {
@@ -125,7 +123,7 @@ $(document).ready(function () {
 
                 }
 
-
+                // code for on click when all 4 choices are displayed
 
                 $('.questionCurrent').on("click", function () {
                     if (time < 0) {
@@ -142,9 +140,15 @@ $(document).ready(function () {
                         //extract the value from the div i clicked on
                         console.log("text inside line 114 ");
                         indexValue = ($(this).attr("data-index"));
+
+                        // select answerID based upon what index value is
+                        // if the values are the same, the answer is correct 
+
                         if (indexValue == (questionArray[questionSet].answerId)) {
                             correct();
                         }
+
+                        // if the answers are not the same, then the answer is incorrect
                         else {
 
                             console.log("this is line 143 - wrong answer");
@@ -163,7 +167,9 @@ $(document).ready(function () {
     } //end of displayQuestion function
 
     function scoreboard() {
+        emptyQA();
         alert("scoreboard window");
+        playAgain();
         time = 3;
         clearInterval(intervalId);
 
@@ -173,7 +179,7 @@ $(document).ready(function () {
 
         let scoreWin = $('<div>');
         scoreWin.html('<h3>Wins: ' + wins + '</h3>');
-        // indexValue = ($(this).attr("data-index"));
+
 
         $("#possibleAnswers").append(scoreLosses);
         $("#possibleAnswers").append(scoreWin);
@@ -191,8 +197,43 @@ $(document).ready(function () {
         emptyQA();
         displayQuestion();
         // timerIsRunning();
+
+        // if question is answered correctly , display correct giphy 
+        //add image for correct answer: 
+        correctImage();
+
+
         count();
         wins++;
+
+
+    }
+
+    //else  wrong question should display correct  giphy !!! 
+    // correct image function
+
+    function correctImage() {
+
+        // THIS WAS MY ATTEMPT TO USE JQUERY 
+        // let correctimg = $("<img>");
+        // correctimg.addClass("correct-image");
+        // correctimg.attr("src", "./assets/images/question" + questionSet + ".gif");
+
+        // // used syntax for img src : https://www.w3schools.com/tags/tag_img.asp
+        // $('#imageCorrect').html("<img src ='./assets/images/" + questionArray[questionSet].giphy);
+
+        if (questionSet == 0) {
+            // let correctimg = $("<img>");
+            // correctimg.attr("src", "./assets/images/question0.gif");
+            $('#imageCorrect').html("<img src =./assets/images/question1.gif>");
+        } if (questionSet == 1) {
+            $('#imageCorrect').html("<img src =./assets/images/question1.gif");
+        }
+        if (questionSet == 2) {
+            $('#imageCorrect').html("<img src =./assets/images/question3.gif");
+        } if (questionSet == 3) {
+            $('#imageCorrect').html("<img src =./assets/images/question4.gif");
+        }
     }
 
     function wrong() {
@@ -203,24 +244,34 @@ $(document).ready(function () {
         time = 3;
         console.log("line 200 " + questionSet);
 
+        //if the questionSet Variable is more than the length of the questionArray
+        // we should go to the scoreboard
         if (questionSet >= questionArray.length) {
             scoreboard();
         } else {
-            // display the correct answer
+            // display the correct answer if wrong answer selected
             let correctDisplay = questionArray[questionSet].answer;
-            console.log(correctDisplay);
-            // $("#possibleAnswers").html("<h3>The correct answer is: " + correctDisplay + "</h3>");
 
-            // unhide gametime button
+            count();
+
+            // unhide displayCorrect
             $("#displayCorrect").css("display", "inline-block");
+
             //  Used the span to "combine" id gamertimer defined in html.
             $("#displayQues").html(correctDisplay);
 
-            // display incorrect gif
-            let incorrectimg = $("<img>");
-            incorrectimg.addClass("incorrect-image");
-            incorrectimg.attr("src", "./assets/images/wrong.gif");
-            $('#possibleAnswers').append(incorrectimg);
+
+
+            // console.log(correctDisplay);
+
+            // $("#possibleAnswers").html("<h3>The correct answer is: " + correctDisplay + "</h3>");
+
+
+
+            // display correct gif
+
+            correctImage();
+
             count();
         }
     }
@@ -230,18 +281,7 @@ $(document).ready(function () {
     }
 
 
-    // question must be answered before timer reaches zero
 
-    // function userClick() {
-
-
-    // }
-
-
-    // if question is answered correctly , display correct giphy 
-
-
-    //else  display WRONG giphy !!! 
 
     // Once all questions are answered, display score results 
 
@@ -258,7 +298,9 @@ $(document).ready(function () {
             clockRunning = true;
 
         }
-
+        if (questionSet > questionArray.length) {
+            scoreboard();
+        }
         // else { clockRunning =false; }
 
 
@@ -273,6 +315,8 @@ $(document).ready(function () {
     }
     // used Week 5, exercise 10, the stop watch exercise to assist me with writing up 
     // the timer portion of this
+
+    // question must be answered before timer reaches zero
     function count() {
 
         if (time >= 0) {
@@ -303,6 +347,7 @@ $(document).ready(function () {
             // $("#possibleAnswers").empty();
             emptyQA();
 
+            timerIsRunning();
             //display next question
             displayQuestion();
 
@@ -313,8 +358,7 @@ $(document).ready(function () {
 
 
     function startButton() {
-        // alert for testing 
-        // alert("start button");
+
 
         let startButton = $("<button>");
 
@@ -351,12 +395,45 @@ $(document).ready(function () {
             // hide the button after you click on it
             $(".buttonProperties").css("display", "none");
             displayQuestion();
+            
         })
     } // end of startButton function
 
 
     function playAgain() {
         alert("playGame");
+
+        let playButton = $("<button>");
+
+
+        // add classes to playagain Properties to button
+        playButton.addClass("playProperties");
+        // playButton.addClass("btn btn-primary btn-lg");
+
+        // hide the button after you click on it
+        playButton.css("display", "inline-block");
+
+        //labled the button START GAME
+        playButton.html('<p> Play Again </p>');
+
+        // added button to start-button div
+        $("#playMore").append(playButton);
+
+        $(".playProperties").on("click", function () {
+
+
+            clockRunning = false;
+            timerIsRunning();
+            count();
+
+            // unhide gametime button
+            $("#gameTimer").css("display", "inline-block");
+            // hide the button after you click on it
+            $(".btn").css("display", "none");
+
+
+            displayQuestion();
+        })
     }
 
 

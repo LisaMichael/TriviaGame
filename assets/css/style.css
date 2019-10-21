@@ -37,6 +37,11 @@ background-color: pink;
 margin-left: 350px;
 }
 
+.playProperties {
+    background-color: pink;
+    margin-left: 350px;
+    display: inline-block;
+    }
 .btn-primary:hover { 
     border-width: 5px;
 
@@ -66,6 +71,10 @@ margin-left: 350px;
 
  #displayCorrect {
      display: none;
+ }
+
+ #displayCorrect::after {
+     display: inline-block;
  }
 
 
