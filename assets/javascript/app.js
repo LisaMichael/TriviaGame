@@ -14,7 +14,7 @@ $(document).ready(function () {
     // let time = 30;
 
     // set timer =5 for testing
-    let time = 3;
+    let time = 30;
     let intervalId;
 
     //will use questionSet to scroll through questions objects when time = 0
@@ -26,12 +26,12 @@ $(document).ready(function () {
     let questionArray = [
         {
             //  question: 0,
-            answerId: 0,
-            question: "this is my first question",
-            answer: 'my answer is my first answer ',
+            answerId: 3,
+            question: "Who did voices in Scooby Doo and family Guy?",
+            answer: 'Adam West',
 
             // place users possible guesses in an array 
-            userGuess: ["option1", "option2", "option3", "option4"],
+            userGuess: ["Shaun Cassidy", "Casey Casem", "Buddy Ebsen", "Adam West"],
             giphy: "./assets/images/question0.gif",
         },
 
@@ -89,6 +89,7 @@ $(document).ready(function () {
         // unhide gametime button
         $("#displayCorrect").css("display", "none");
 
+        // Once all questions are answered, display score results 
         if (questionSet > questionArray.length - 1) {
             console.log("line 90 ... i need the scoreboard");
             timerIsRunning();
@@ -145,6 +146,7 @@ $(document).ready(function () {
                         // if the values are the same, the answer is correct 
 
                         if (indexValue == (questionArray[questionSet].answerId)) {
+
                             correct();
                         }
 
@@ -167,6 +169,7 @@ $(document).ready(function () {
     } //end of displayQuestion function
 
     function scoreboard() {
+        $('#imageCorrect').empty();
         emptyQA();
         alert("scoreboard window");
         playAgain();
@@ -189,6 +192,8 @@ $(document).ready(function () {
 
     function correct() {
 
+        let urCorrect = $('<div>');
+        $("#possibleAnswers").html('<h3> You are absolutely CORRECT !</h3>');
         // if question is answered correctly , display correct giphy 
         //add image for correct answer: 
         correctImage();
@@ -199,9 +204,6 @@ $(document).ready(function () {
         questionSet++;
         emptyQA();
         displayQuestion();
-
-
-
 
 
         count();
@@ -220,19 +222,22 @@ $(document).ready(function () {
         // correctimg.addClass("correct-image");
         // correctimg.attr("src", "./assets/images/question" + questionSet + ".gif");
 
-        // // used syntax for img src : https://www.w3schools.com/tags/tag_img.asp
-        // $('#imageCorrect').html("<img src ='./assets/images/" + questionArray[questionSet].giphy);
+        // // used syntax for img src :https://stackoverflow.com/questions/16432001/how-to-append-image-using-jquery-append
+
 
         if (questionSet === 0) {
-            
-            $('#imageCorrect').append('<img src="./assets/images/question0.gif">');
+            $('#imageCorrect').empty();
+            $('#imageCorrect').append('<img src="./assets/images/question0.gif" height="200px" width="200px">');
         } if (questionSet == 1) {
+            $('#imageCorrect').empty();
             $('#imageCorrect').append('<img src ="./assets/images/question1.gif">');
         }
         if (questionSet == 2) {
+            $('#imageCorrect').empty();
             $('#imageCorrect').append('<img src ="./assets/images/question2.gif">');
         } if (questionSet == 3) {
-            $('#imageCorrect').append('<img src ="./assets/images/question4.gif">');
+            $('#imageCorrect').empty();
+            $('#imageCorrect').append('<img src ="./assets/images/question3.gif">');
         }
     }
 
@@ -240,8 +245,8 @@ $(document).ready(function () {
         console.log("wrong answer");
         emptyQA();
         losses++;
-        count();
-        time = 3;
+        // count();
+        time = 30;
 
         clockRunning = false;
         timerIsRunning();
@@ -258,7 +263,7 @@ $(document).ready(function () {
             // display the correct answer if wrong answer selected
             let correctDisplay = questionArray[questionSet].answer;
 
-            count();
+            // count();
 
             // unhide displayCorrect
             $("#displayCorrect").css("display", "inline-block");
@@ -275,23 +280,17 @@ $(document).ready(function () {
 
 
             // display correct gif
-
             correctImage();
 
-            count();
+            // count();
         }
     }
 
-    function test() {
-        console.log("this is a test in a functionat global level")
-    }
 
 
 
+    
 
-    // Once all questions are answered, display score results 
-
-    // display button to play again
 
 
     // function to start countdown timer 
@@ -304,11 +303,14 @@ $(document).ready(function () {
             clockRunning = true;
 
         }
+
+        // Once all questions are answered, display score results 
         if (questionSet > questionArray.length) {
+
+            console.log("am i hitting this code? ")
             scoreboard();
         }
-        // else { clockRunning =false; }
-
+    
 
     }
 
@@ -339,8 +341,8 @@ $(document).ready(function () {
 
         }
 
-        //length of array is 3 but i need a negative value to if statement
-        //so we end the if statement at the end of the questionArray
+        //length of array is 4 , this code is less than the length of array 
+        
 
 
         if (time < 0 && questionSet < questionArray.length - 1) {
@@ -357,11 +359,11 @@ $(document).ready(function () {
             //display next question
             displayQuestion();
 
-            time = 3;
+            time = 30;
         }
     }
 
-
+// function to display start button
 
     function startButton() {
 
@@ -387,7 +389,6 @@ $(document).ready(function () {
         // $(".buttonProperties").css("margin-left", "350px");
 
 
-
         $(".buttonProperties").on("click", function () {
             clockRunning = false;
             timerIsRunning();
@@ -405,6 +406,8 @@ $(document).ready(function () {
         })
     } // end of startButton function
 
+
+    // display button to play again
 
     function playAgain() {
         alert("playGame");
@@ -428,8 +431,6 @@ $(document).ready(function () {
         $(".playProperties").on("click", function () {
 
 
-
-
             // unhide gametime button
             $("#gameTimer").css("display", "inline-block");
             // hide the button after you click on it
@@ -440,6 +441,8 @@ $(document).ready(function () {
             count();
             emptyQA();
             questionSet = 0;
+            wins = 0;
+            losses = 0;
             clearInterval(intervalId);
             displayQuestion();
         })
