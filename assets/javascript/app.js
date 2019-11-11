@@ -183,16 +183,14 @@ $(document).ready(function () {
 
             }
         }
-        // else {
-        //     scoreboard()
-        // }
+       
 
     } //end of displayQuestion function
 
     function scoreboard() {
     
 console.log("I am in the scoreboard function");
-alert ("scoreboard");
+
  $('#imageCorrect').empty();
         emptyQA();
         let tally = $("<div>");
@@ -211,7 +209,7 @@ alert ("scoreboard");
 
         $("#possibleAnswers").append(scoreLosses);
         $("#possibleAnswers").append(scoreWin);
-        // playAgain();
+        playAgain();
         // }
 
     } // end of scoreboard function
@@ -231,13 +229,13 @@ alert ("scoreboard");
         clockRunning = false;
         time = 5;
         // questionSet++;
-        console.log("The question set is now: " + questionSet);
+        console.log("The question set is now: in the correct() :" + questionSet);
        
         // displayQuestion();
 
         // count();
         wins++;
-
+        console.log("wins++: " + wins); 
         //     if (questionSet > questionArray.length) {
         //         scoreboard();
         //     }
@@ -327,6 +325,7 @@ alert ("scoreboard");
         // empty previous questions
         emptyQA();
         losses++;
+		console.log("losses: " + losses);
         // count();
         time = 5;
 
@@ -337,10 +336,12 @@ alert ("scoreboard");
         //if the questionSet Variable is more than the length of the questionArray
         // we should go to the scoreboard (we are at the last question)
         if (questionSet >= questionArray.length) {
+			console.log("this is code in the wrong code. am i hitting this?");
             scoreboard();
             console.log("if (questionSet > questionArray.length) part of code")
             console.log("line 337. This is the question set " + questionSet);
             losses++
+			console.log("losses in if questionSet >= questionArray.length statement: " + losses);
             // clearInterval(intervalId);
             // time = 0;
             
@@ -354,7 +355,7 @@ alert ("scoreboard");
             // displayQuestion();
             // count();
             console.log("The correct answer is: " + correctDisplay);
-            console.log("The question set is: " + questionSet)
+            console.log("The question set in displayQuestion() is: " + questionSet)
 
 
             // unhide displayCorrect
@@ -430,22 +431,34 @@ alert ("scoreboard");
             console.log("question set = " + questionSet);
             //increment question set to move onto the next question
             // questionSet++;
-            console.log("question set NOW = " + questionSet);
+            console.log("question set NOW in counter() function = " + questionSet);
             questionSet++;
+        
+            console.log("question set is: " + questionSet + " wins: " + wins + " losses " + losses );
+
+            
             // $('#imageCorrect').empty();
             // empty existing question and possible answers
             // $("#questions").empty();
             // $("#possibleAnswers").empty();
-            wrong();
+           // wrong();
             emptyQA();
-            // timerIsRunning();
 
             //display next question
             displayQuestion();
            
 
-            time = 30;
+            // time = 30;
         }
+        if(questionSet> questionArray.length){
+            clearInterval(intervalId);
+            scoreboard();
+        }
+        // else{
+        //     clearInterval(intervalId); 
+        //     scoreboard();
+        // }
+        
     }
 
     // function to display start button
