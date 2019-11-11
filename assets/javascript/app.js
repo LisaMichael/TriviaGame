@@ -508,7 +508,7 @@ console.log("I am in the scoreboard function");
     // display button to play again
 
     function playAgain() {
-        alert("playGame");
+        // alert("playGame");
         $("#playMore").empty();
         // clearInterval(intervalId);
         let playButton = $("<button>");
