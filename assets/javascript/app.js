@@ -93,6 +93,9 @@ $(document).ready(function () {
 
     function displayQuestion() {
 
+        // hide the previous giphy
+        $('#imageCorrect').empty();
+        
         // unhide gametime button
         $("#displayCorrect").css("display", "none");
 
@@ -145,10 +148,9 @@ $(document).ready(function () {
                         $('#imageCorrect').empty();
                         $('#imageCorrect').append('<img src ="./assets/images/question5.gif">');
                         emptyQA();
-                        unanswered++;
                         // questionSet++;
                         clearInterval(intervalId);
-                        // displayQuestion();
+                        displayQuestion();
                         scoreboard();
                     }
                     else {
@@ -172,7 +174,7 @@ $(document).ready(function () {
 
                         else {
                             indexValue != (questionArray[questionSet].answerId)
-                            console.log("this is line 155 - wrong answer");
+                            console.log("this is line 174 - wrong answer");
                             wrong();
                         }
 
@@ -189,7 +191,8 @@ $(document).ready(function () {
 
     function scoreboard() {
     
-
+console.log("I am in the scoreboard function");
+alert ("scoreboard");
  $('#imageCorrect').empty();
         emptyQA();
         let tally = $("<div>");
@@ -208,7 +211,7 @@ $(document).ready(function () {
 
         $("#possibleAnswers").append(scoreLosses);
         $("#possibleAnswers").append(scoreWin);
-        playAgain();
+        // playAgain();
         // }
 
     } // end of scoreboard function
@@ -219,6 +222,7 @@ $(document).ready(function () {
         urCorrect.text("you are absolutely correct")
         $("#possibleAnswers").append(urCorrect);
         console.log("you are absolutely correct");
+        emptyQA();
         // if question is answered correctly , display correct giphy 
         //add image for correct answer: 
         correctImage();
@@ -226,12 +230,12 @@ $(document).ready(function () {
         // clearInterval(intervalId);
         clockRunning = false;
         time = 5;
-        questionSet++;
+        // questionSet++;
         console.log("The question set is now: " + questionSet);
-        emptyQA();
-        displayQuestion();
+       
+        // displayQuestion();
 
-        count();
+        // count();
         wins++;
 
         //     if (questionSet > questionArray.length) {
@@ -326,23 +330,24 @@ $(document).ready(function () {
         // count();
         time = 5;
 
-        // clockRunning = false;
 
         // displayQuestion();
 
-        console.log("line 259. This is the question set " + questionSet);
+        console.log("line 332. This is the question set " + questionSet);
         //if the questionSet Variable is more than the length of the questionArray
         // we should go to the scoreboard (we are at the last question)
         if (questionSet >= questionArray.length) {
-            console.log("if (questionSet > questionArray.length) part of code")
-            console.log("line 262. This is the question set " + questionSet);
-            losses++
-            clearInterval(intervalId);
-            time = 0;
             scoreboard();
+            console.log("if (questionSet > questionArray.length) part of code")
+            console.log("line 337. This is the question set " + questionSet);
+            losses++
+            // clearInterval(intervalId);
+            // time = 0;
+            
         } else {
             
             // display the correct answer if wrong answer selected
+
 
             // displays the correct answer 
             let correctDisplay = questionArray[questionSet].answer;
@@ -350,18 +355,20 @@ $(document).ready(function () {
             // count();
             console.log("The correct answer is: " + correctDisplay);
             console.log("The question set is: " + questionSet)
+
+
             // unhide displayCorrect
             $("#displayCorrect").css("display", "inline-block");
 
             //  Used the span to "combine" id gamertimer defined in html.
             $("#displayQues").html(correctDisplay);
             time = 5;
-            questionSet++;
+            // questionSet++;
 
             // $("#possibleAnswers").html("<h3>The correct answer is: " + correctDisplay + "</h3>");
 
             // display correct gif
-            incorrectImage();
+            correctImage();
 
         }
     }
@@ -401,7 +408,6 @@ $(document).ready(function () {
 
         if (time >= 0) {
 
-            // const converted = timeConverter(time);
             console.log(time);
 
             //  Used the span to "combine" id gamertimer defined in html.
@@ -425,14 +431,18 @@ $(document).ready(function () {
             //increment question set to move onto the next question
             // questionSet++;
             console.log("question set NOW = " + questionSet);
+            questionSet++;
+            // $('#imageCorrect').empty();
             // empty existing question and possible answers
             // $("#questions").empty();
             // $("#possibleAnswers").empty();
             wrong();
             emptyQA();
             // timerIsRunning();
+
             //display next question
             displayQuestion();
+           
 
             time = 30;
         }
