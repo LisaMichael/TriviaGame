@@ -96,7 +96,7 @@ $(document).ready(function () {
         // hide the previous giphy
         $('#imageCorrect').empty();
         
-        // unhide gametime button
+        // hide gametime button
         $("#displayCorrect").css("display", "none");
 
         // empty the previous image 
@@ -215,10 +215,22 @@ console.log("I am in the scoreboard function");
     } // end of scoreboard function
 
     function correct() {
+let correctDisplay = questionArray[questionSet].answer;
+            // displayQuestion();
+            // count();
+            console.log("The correct answer is: " + correctDisplay);
+            console.log("The question set in displayQuestion() is: " + questionSet)
 
-        let urCorrect = $("<div>");
-        urCorrect.text("you are absolutely correct")
-        $("#possibleAnswers").append(urCorrect);
+
+            // unhide displayCorrect
+            $("#displayCorrect").css("display", "inline-block");
+
+            //  Used the span to "combine" id gamertimer defined in index.html.
+            $("#displayQues").html(correctDisplay);
+			
+    //    let urCorrect = $("<div>");
+    //    urCorrect.html("You are absolutely correct");
+     //   $("#displayCorrect").append(urCorrect);
         console.log("you are absolutely correct");
         emptyQA();
         // if question is answered correctly , display correct giphy 
@@ -258,30 +270,30 @@ console.log("I am in the scoreboard function");
         if (questionSet === 0) {
             console.log("test text0");
             $('#imageCorrect').empty();
- $('#imageCorrect').append('<img src="./assets/images/question0.gif" height="200px" width="200px">');
+ $('#imageCorrect').append('<img src="./assets/images/question0.gif" height="350px" width="350px">');
         } if (questionSet == 1) {
             console.log("test text1");
             $('#imageCorrect').empty();
-            $('#imageCorrect').append('<img src ="./assets/images/question1.gif"height="200px" width="200px">');
+            $('#imageCorrect').append('<img src ="./assets/images/question1.gif" height="350px" width="350px">');
         }
         if (questionSet == 2) {
             console.log("test text2");
             $('#imageCorrect').empty();
-            $('#imageCorrect').append('<img src ="./assets/images/question2.gif">');
+            $('#imageCorrect').append('<img src ="./assets/images/question2.gif" height="350px" width="350px">');
         } if (questionSet == 3) {
             console.log("test text3");
             $('#imageCorrect').empty();
-            $('#imageCorrect').append('<img src ="./assets/images/question3.gif">');
+            $('#imageCorrect').append('<img src ="./assets/images/question3.gif" height="350px" width="350px">');
         }
         if (questionSet == 4) {
             console.log("test text4");
             $('#imageCorrect').empty();
-            $('#imageCorrect').append('<img src ="./assets/images/question4.gif">');
+            $('#imageCorrect').append('<img src ="./assets/images/question4.gif" height="350px" width="350px">');
         }
         if (questionSet == 5) {
             console.log("test text5");
             $('#imageCorrect').empty();
-            $('#imageCorrect').append('<img src ="./assets/images/question5.gif">');
+            $('#imageCorrect').append('<img src ="./assets/images/question5.gif" height="350px" width="350px">');
         }
     }
 
@@ -411,7 +423,7 @@ console.log("I am in the scoreboard function");
 
             console.log(time);
 
-            //  Used the span to "combine" id gamertimer defined in html.
+            //  Used the span to "combine" id defined in html.
             $("#timerPart2").html(time + " seconds");
 
             // Decrement time by 1, remember we cant use "this" here.
